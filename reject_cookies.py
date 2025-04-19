@@ -10,6 +10,14 @@ from selenium.webdriver.chrome.options import Options
 
 # first thing reject cookies on yt music
 def rejectCookies(url):
+    options = Options()
+    # options.add_argument('--headless=new')
+
+    driver = webdriver.Chrome(
+        service=ChromeService(ChromeDriverManager().install()),
+        options=options
+    )
+
     driver.get(url)
 
     try:

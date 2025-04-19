@@ -8,7 +8,6 @@ from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.options import Options
 
 from scrape_artist import *
-from reject_cookies import * 
 
 yt_music_url = "https://music.youtube.com"
 
@@ -19,6 +18,23 @@ driver = webdriver.Chrome(
     service=ChromeService(ChromeDriverManager().install()),
     options=options
 )
+
+
+#first thing reject cookies on yt music
+def rejectCookies():
+    driver.get(yt_music_url)
+
+    try:
+        reject_button = WebDriverWait(driver, 10).until(
+            EC.element_to_be_clickable((By.XPATH, "//button//span[text()='Reject all']"))
+        )
+        reject_button.click()
+        print("rejected cookies")
+
+    except TimeoutException:
+        print("consent page didnt come up")
+        driver.quit()
+        exit()
 
 def getArtistUrl(artist_name):
     search_url = "https://music.youtube.com/search?q=" + artist_name
