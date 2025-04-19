@@ -7,7 +7,7 @@ from selenium.webdriver.chrome.service import Service as ChromeService
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.options import Options
 
-from scrape_artist import *
+from scrape_album_urls import *
 from init_driver import *
 
 
@@ -20,14 +20,9 @@ def getArtistUrl(driver, artist_name):
     )
     print("search loaded")
 
-    # artist_element = driver.find_element(By.CSS_SELECTOR, ".style-scope.yt-formatted-string")
-    # xpath = "//span[contains(@class, 'yt-formatted-string')][text() = 'Artist']"
     xpath = "//span[contains(@class, 'yt-formatted-string')][text() = 'Artist']/ancestor::div[contains(@class, 'metadata-container')]"
     artist_element = driver.find_element(By.XPATH, xpath)
     artist_url = artist_element.find_element(By.CSS_SELECTOR ,"a[href]").get_attribute("href")
-    # artist_element = driver.find_element(By.XPATH, "//yt-formatted-string[contains(text(), 'Artist')]/ancestor::div[contains(@class, 'metadata-container')]")
-    # artist_url = artist_element.find_element(By.TAG_NAME, "a").get_attribute("href")
-    # <a class="yt-simple-endpoint style-scope yt-formatted-string" spellcheck="false" href="channel/UCAzb0gYKjvUm-WNy-tevEcw">Testament</a>
 
     print(artist_url)
     return artist_url
@@ -42,7 +37,7 @@ def scrapeArists(artists):
         artist_urls.append(getArtistUrl(driver, artist))
 
     for artist_url in artist_urls:
-        scrapeArtist(driver, artist_url)
+        scrapeAlbumUrls(driver, artist_url)
 
 artists = ["testament", "megadeth", "metallica"]
 scrapeArists(artists)

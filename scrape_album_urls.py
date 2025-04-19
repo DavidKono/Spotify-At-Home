@@ -6,21 +6,8 @@ from selenium.common import TimeoutException
 from selenium.webdriver.chrome.service import Service as ChromeService
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.options import Options
-import re
 
-keywords = [
-    'greatest hits', 'best of', 'anthology', 'collection', 'essential', 'definitive',
-    'retrospective', 'chronicles', 'gold', 'platinum', 'box set', 'singles', 'classics',
-    'live', 'in concert', 'complete', 'tour', 'unplugged', 'sessions', 'concert', 'encore',
-    'deluxe', 'extended', 'special', 'edition', 'remastered', 'reissue', 'expanded',
-    'bonus', 'disc', 'anniversary', 'remix'
-]
-
-def checkAlbumDuplicate(title):
-    title_lower = title.lower()
-    return any(re.search(rf'\b{kw}\b', title_lower) for kw in keywords)
-
-def scrapeArtist(driver, artist_url):
+def scrapeAlbumUrls(driver, artist_url):
 
     driver.get(artist_url)
     
@@ -60,9 +47,8 @@ def scrapeArtist(driver, artist_url):
             album_title = album_details.text
             album_url = album_details.find_element(By.TAG_NAME, "a").get_attribute("href")
 
-            if (not checkAlbumDuplicate(album_title)):
-                album_titles.append(album_title)
-                album_urls.append(album_url)
+            album_titles.append(album_title)
+            album_urls.append(album_url)
             
         except Exception as e:
             print(f"Error:")
