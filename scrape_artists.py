@@ -8,7 +8,6 @@ from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.options import Options
 
 from scrape_artist import *
-from reject_cookies import *
 from init_driver import *
 
 
@@ -45,14 +44,5 @@ def scrapeArists(artists):
     for artist_url in artist_urls:
         scrapeArtist(driver, artist_url)
 
-    # scrapeArtist(driver, "https://music.youtube.com/channel/UCGexNm_Kw4rdQjLxmpb2EKw")
-        
-
 artists = ["testament", "megadeth", "metallica"]
 scrapeArists(artists)
-
-# artist_urls = []
-# for artist in artists:
-#     artist_urls.append(getArtistUrl(artist))
-
-# https://music.youtube.com/search?q=testament
