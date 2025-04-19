@@ -7,19 +7,22 @@ from selenium.webdriver.chrome.service import Service as ChromeService
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.options import Options
 
+from reject_cookies import *
+
 
 # first thing reject cookies on yt music
-def rejectCookies(driver):
-    try:
-        reject_button = WebDriverWait(driver, 10).until(
-            EC.element_to_be_clickable((By.XPATH, "//button//span[text()='Reject all']"))
-        )
-        reject_button.click()
-        print("rejected cookies")
+def initDriver(url):
 
-    except TimeoutException:
-        print("consent page didnt come up")
-        driver.quit()
-        exit()
+    options = Options()
+    # options.add_argument('--headless=new')
+
+    driver = webdriver.Chrome(
+        service=ChromeService(ChromeDriverManager().install()),
+        options=options
+    )
+
+    driver.get(url)
+
+    driver = rejectCookies(driver)
 
     return driver

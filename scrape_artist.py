@@ -8,14 +8,6 @@ from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.options import Options
 import re
 
-options = Options()
-# options.add_argument('--headless=new')
-
-driver = webdriver.Chrome(
-    service=ChromeService(ChromeDriverManager().install()),
-    options=options
-)
-
 keywords = [
     'greatest hits', 'best of', 'anthology', 'collection', 'essential', 'definitive',
     'retrospective', 'chronicles', 'gold', 'platinum', 'box set', 'singles', 'classics',
@@ -28,7 +20,8 @@ def checkAlbumDuplicate(title):
     title_lower = title.lower()
     return any(re.search(rf'\b{kw}\b', title_lower) for kw in keywords)
 
-def scrapeArtist(artist_url):
+def scrapeArtist(driver, artist_url):
+
     driver.get(artist_url)
     
     WebDriverWait(driver, 10).until(
