@@ -1,9 +1,11 @@
 import os
+import json
 
-aritsts_dir = "downloaded_content/artists"
+artists_dir = "downloaded_content/artists"
+json_name = "details.json"
 
 def getArtistDirectoryName(artist_name):
-    artist_path = os.path.join(aritsts_dir, artist_name)
+    artist_path = os.path.join(artists_dir, artist_name)
     artist_path = os.path.normpath(artist_path)
     return artist_path
 
@@ -11,7 +13,38 @@ def makeArtistDirectory(artist_name):
     artist_path = getArtistDirectoryName(artist_name)
 
     if (not os.path.exists(artist_path)):
-        os.mkdir(artist_path)
+        os.makedirs(artist_path)
+ 
+def appendAlbumToJson(artist_name, album_name):
+    artist_path = getArtistDirectoryName(artist_name)
+    json_path = os.path.join(artist_path, json_name)
+
+    if not os.path.exists(json_path):
+        with open(json_path, "w") as f:
+            json.dump([], f)
+
+    with open(json_path, "r+") as f:
+        file_data = json.load(f)
+        file_data.append(album_name)
+        f.seek(0)
+        json.dump(file_data, f)
+        f.truncate()
+    
+appendAlbumToJson("testament", "jojo haha")
+
+# def createArtistJson(artist_path):
+#     json_path = os.path.join(artist_path, json_name)
+#     if not os.path.exists(json_path):
+#         json_file = open(json_path, "x")
+
+
+# def createArtistJson(artist_path):
+#     existing_albums = os.listdir(artist_path)
+
+#     json_path = os.path.join(artist_path, json_name)
+#     if not os.path.exists(json_path):
+#         json_file = open(json_path, "x")
+
 
 def getAlbumDirectoryName(artist_name, album_name):
     artist_path = getArtistDirectoryName(artist_name)
@@ -25,3 +58,4 @@ def makeAlbumDirectory(artist_name, album_name):
 
     if (not os.path.exists(album_path)):
         os.makedirs(album_path)
+

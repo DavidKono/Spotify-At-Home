@@ -27,17 +27,4 @@ def getArtistUrl(driver, artist_name):
     print(artist_url)
     return artist_url
 
-def scrapeArists(artists):
-    yt_music_url = "https://music.youtube.com"
 
-    driver = initDriver(yt_music_url)
-    
-    artist_urls = []
-    for artist in artists:  
-        artist_urls.append(getArtistUrl(driver, artist))
-
-    for artist_url in artist_urls:
-        scrapeAlbumUrls(driver, artist_url)
-
-artists = ["testament", "megadeth", "metallica"]
-scrapeArists(artists)

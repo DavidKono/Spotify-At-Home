@@ -10,7 +10,7 @@ from selenium.webdriver.chrome.options import Options
 def scrapeAlbumUrls(driver, artist_url):
 
     driver.get(artist_url)
-    
+
     WebDriverWait(driver, 10).until(
         EC.presence_of_element_located((By.CSS_SELECTOR, "#content-wrapper")),
     )
@@ -23,8 +23,9 @@ def scrapeAlbumUrls(driver, artist_url):
     )
     try: 
         albums_button.click()
-    except:
+    except Exception as e: 
         print("couldnt go to albums")
+        print("error: ", e)
         driver.quit()
         exit()
 
@@ -50,11 +51,11 @@ def scrapeAlbumUrls(driver, artist_url):
             album_titles.append(album_title)
             album_urls.append(album_url)
             
-        except Exception as e:
-            print(f"Error:")
+        except Exception as e: 
+            print(f"couldnt get album details for {album}")
+            print("error: ", e)
 
     for album in album_titles:
         print(album)
-
-# scrapeArtist("https://music.youtube.com/channel/UCGexNm_Kw4rdQjLxmpb2EKw")
+    return album_titles, album_urls
 
