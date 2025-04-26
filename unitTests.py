@@ -30,6 +30,9 @@ def test_downloadAlbum():
 test_downloadAlbum()
 
 
+# appendAlbumToJson("testament", "jojo haha")
+
+
 # artists = ["theocracy"]
 # artist_urls = ["https://music.youtube.com/channel/UC0HijtVThn8Y_iUdVjEI6Ww"]
 # scrapeAristsWithUrls(artists, artist_urls)

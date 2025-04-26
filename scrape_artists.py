@@ -32,7 +32,7 @@ def scrapeAristsWithUrls(artists, artist_urls):
 def scrapeArtist(driver, artist, artist_url):
     try: 
         album_titles, album_urls = scrapeAlbumUrls(driver, artist_url)
-        # makeArtistDirectory(artist)
+        makeArtistDirectory(artist)
         appendArtistToJson(artist)
 
         for i in range(len(album_titles)):
@@ -59,7 +59,7 @@ def downloadAlbum(artist, album, album_url):
     try: 
         # makeAlbumDirectory(artist, album)
         album_dir = getAlbumDirectoryName(artist, album)
-        album_dir_option = {'outtmpl': album_dir}
+        album_dir_option = {'outtmpl': f"{album_dir}/%(title)s.%(ext)s"}
 
         ydl_opts = {**ydl_opts, **album_dir_option}
 
