@@ -2,7 +2,8 @@ import os
 import json
 
 artists_dir = "downloaded_content/artists"
-json_name = "details.json"
+albums_json_name = "albums.json"
+artists_json_name = "artists.json"
 
 def getArtistDirectoryName(artist_name):
     artist_path = os.path.join(artists_dir, artist_name)
@@ -17,7 +18,7 @@ def makeArtistDirectory(artist_name):
  
 def appendAlbumToJson(artist_name, album_name):
     artist_path = getArtistDirectoryName(artist_name)
-    json_path = os.path.join(artist_path, json_name)
+    json_path = os.path.join(artist_path, albums_json_name)
 
     if not os.path.exists(json_path):
         with open(json_path, "w") as f:
@@ -25,10 +26,13 @@ def appendAlbumToJson(artist_name, album_name):
 
     with open(json_path, "r+") as f:
         file_data = json.load(f)
-        file_data.append(album_name)
-        f.seek(0)
-        json.dump(file_data, f)
-        f.truncate()
+        if album_name not in file_data:
+            file_data.append(album_name)
+            f.seek(0)
+            json.dump(file_data, f)
+            f.truncate()
+        else:
+            print(f"album {album_name} from artist {artist_name} already in json")
     
 appendAlbumToJson("testament", "jojo haha")
 
