@@ -42,6 +42,7 @@ def scrapeArtist(driver, artist, artist_url):
         print(f"failed to download albums from {artist}")
         print("error: ", e)
 
+
 def getPlaylistTitle(playlist_url):
     ydl_opts = {
         'quiet': True,
@@ -55,8 +56,6 @@ def getPlaylistTitle(playlist_url):
             return info['title']
         else:
             return None
-
-
 
 def downloadPlaylist(playlist_url, playlist_title="default_playlist_title", artist_title="Misc Playlists"):
 
@@ -101,8 +100,6 @@ def downloadPlaylist(playlist_url, playlist_title="default_playlist_title", arti
     except Exception as e: 
         print(f"failed to scrape Playlist {playlist_title}")
         print("error: ", e)
-
-
 
 
 
