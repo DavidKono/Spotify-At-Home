@@ -42,12 +42,35 @@ def scrapeArtist(driver, artist, artist_url):
         print(f"failed to download albums from {artist}")
         print("error: ", e)
 
-def downloadPlaylist(playlist_url, playlist_title):
-    
-    makeArtistDirectory("Misc_Playlists")
-    appendArtistToJson("Misc_Playlists")
+def getPlaylistTitle(playlist_url):
+    ydl_opts = {
+        'quiet': True,
+        'extract_flat': True
+    }
 
-    if getAlbumAlreadyExists("Misc_Playlists", playlist_title):
+    with YoutubeDL(ydl_opts) as ytdl:
+        info = ytdl.extract_info(playlist_url,download=False)
+
+        if 'title' in info:
+            return info['title']
+        else:
+            return None
+
+
+
+def downloadPlaylist(playlist_url, playlist_title="default_playlist_title", artist_title="Misc Playlists"):
+
+    if playlist_title=="default_playlist_title":
+        playlist_title = getPlaylistTitle(playlist_url)
+
+        if (playlist_title == None):
+            raise ValueError("couldnt get playlist name from url, please provide name for playlist")
+
+
+    makeArtistDirectory(artist_title)
+    appendArtistToJson(artist_title)
+
+    if getAlbumAlreadyExists(artist_title, playlist_title):
         print(f"Playlist {playlist_title} already downloaded")
         return
     
@@ -65,7 +88,7 @@ def downloadPlaylist(playlist_url, playlist_title):
     }  
 
     try: 
-        album_dir = getAlbumDirectoryName("Misc_Playlists", playlist_title)
+        album_dir = getAlbumDirectoryName(artist_title, playlist_title)
         album_dir_option = {'outtmpl': f"{album_dir}/%(title)s.%(ext)s"}
 
         ydl_opts = {**ydl_opts, **album_dir_option}
@@ -73,7 +96,7 @@ def downloadPlaylist(playlist_url, playlist_title):
         with YoutubeDL(ydl_opts) as ytdl:
             ytdl.download(playlist_url)
 
-        appendAlbumToJson("Misc_Playlists", playlist_title)
+        appendAlbumToJson(artist_title, playlist_title)
 
     except Exception as e: 
         print(f"failed to scrape Playlist {playlist_title}")
@@ -81,7 +104,7 @@ def downloadPlaylist(playlist_url, playlist_title):
 
 
 
-        
+
 
 def downloadAlbum(artist, album, album_url):
     if getAlbumAlreadyExists(artist, album):
