@@ -79,6 +79,10 @@ def downloadPlaylist(playlist_url, playlist_title):
         print(f"failed to scrape Playlist {playlist_title}")
         print("error: ", e)
 
+
+
+        
+
 def downloadAlbum(artist, album, album_url):
     if getAlbumAlreadyExists(artist, album):
         print(f"Album {album} by artist {artist} already downloaded")
