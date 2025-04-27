@@ -34,9 +34,8 @@ def appendAlbumToJson(artist_name, album_name):
         else:
             print(f"album {album_name} from artist {artist_name} already in json")
 
-def appendArtistToJson(artist_name, album_name):
-    artist_path = getArtistDirectoryName(artist_name)
-    json_path = os.path.join(artist_path, artists_json_name)
+def appendArtistToJson(artist_name):
+    json_path = os.path.join(artists_dir, artists_json_name)
 
     if not os.path.exists(json_path):
         with open(json_path, "w") as f:
@@ -44,13 +43,21 @@ def appendArtistToJson(artist_name, album_name):
 
     with open(json_path, "r+") as f:
         file_data = json.load(f)
-        if album_name not in file_data:
-            file_data.append(album_name)
+        if artist_name not in file_data:
+            file_data.append(artist_name)
             f.seek(0)
             json.dump(file_data, f)
             f.truncate()
         else:
             print(f"artist {artist_name} already in json")
+
+def getAlbumAlreadyExists(artist_name, album_name):
+    album_path = getAlbumDirectoryName(artist_name, album_name)
+
+    if (os.path.exists(album_path)):
+        return True
+    return False
+
 
 # def createArtistJson(artist_path):
 #     json_path = os.path.join(artist_path, json_name)
