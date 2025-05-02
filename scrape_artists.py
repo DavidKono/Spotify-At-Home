@@ -2,7 +2,7 @@ from yt_dlp import YoutubeDL
 
 from init_driver import *
 from scrape_artist_urls import *
-from make_new_dir import *
+from directory_commands import *
 
 def scrapeAristsWithSearch(artists):
     yt_music_url = "https://music.youtube.com"
@@ -65,7 +65,6 @@ def downloadPlaylist(playlist_url, playlist_title="default_playlist_title", arti
         if (playlist_title == None):
             raise ValueError("couldnt get playlist name from url, please provide name for playlist")
 
-
     makeArtistDirectory(artist_title)
     appendArtistToJson(artist_title)
 
@@ -100,8 +99,6 @@ def downloadPlaylist(playlist_url, playlist_title="default_playlist_title", arti
     except Exception as e: 
         print(f"failed to scrape Playlist {playlist_title}")
         print("error: ", e)
-
-
 
 def downloadAlbum(artist, album, album_url):
     if getAlbumAlreadyExists(artist, album):

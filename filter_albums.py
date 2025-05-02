@@ -17,9 +17,6 @@ def checkAlbumHasKeyword(title):
 # user can replace with their preferred version
 # no simple way to "always" get the original, so just install whichever first
 def checkAlbumIsOriginal(artist_album):
-    
-
-
 
 #yt music sometimes only has remasters of albums, to to avoid not downloading the only copy, we also compare albums names to see if albums might might be longer named versions of other albums ie unoriginal remasters
 # def checkAlbumIsNotInDir():

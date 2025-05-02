@@ -14,7 +14,7 @@ from reject_cookies import *
 def initDriver(url):
 
     options = Options()
-    # options.add_argument('--headless=new')
+    options.add_argument('--headless=new')
 
     driver = webdriver.Chrome(
         service=ChromeService(ChromeDriverManager().install()),
