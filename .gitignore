@@ -7,3 +7,4 @@ venv
 downloaded_content
 filter_albums.py
 tests.py
+.DS_Store
