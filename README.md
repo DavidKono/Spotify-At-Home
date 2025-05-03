@@ -6,6 +6,8 @@ Designed for mac/linux.
 Ensure you have a version of python 3 installed
 First make the script executable < chmod +x run.sh
 To download, modify run_scraper.py as needed with the necessary functions defined below, then run ./run_script.sh
+Your artists will be downloaded into the downloaded_content folder in the project directory.
+
 Note that on Windows this probably won't work even in a bash terminal, so would probably require a rewrite as a .bat file.
 
 # Useful Functions:
