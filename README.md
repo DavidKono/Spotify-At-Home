@@ -1,14 +1,14 @@
-#Spotify-At-Home
+# Spotify-At-Home
 A small python project to automate installation of music from your favourite artists to mp3 from youtube music, e.g. for use on an MP3 player.
 
-#How to use
+# How to use
 Designed for mac/linux. 
 Ensure you have a version of python 3 installed
 First make the script executable < chmod +x run.sh
 To download, modify run_scraper.py as needed with the necessary functions defined below, then run ./run_script.sh
 Note that on Windows this probably won't work even in a bash terminal, so would probably require a rewrite as a .bat file.
 
-#Useful Functions:
+# Useful Functions:
 scrapeAristsWithSearch(artists)
 Takes in list of artists and scrapes all of their albums. Probably the most useful individual function, however it can add a lot of bloat by adding unwanted albums. If you are worried about storage use downloadPlaylist and provide artist title
 
